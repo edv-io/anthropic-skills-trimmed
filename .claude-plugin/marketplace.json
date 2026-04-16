@@ -1,53 +1,21 @@
 {
-  "name": "anthropic-agent-skills",
-  "owner": {
-    "name": "Keith Lazuka",
-    "email": "klazuka@anthropic.com"
-  },
+  "name": "anthropic-skills-trimmed",
+  "owner": { "name": "EdV", "email": "alex@ed-v.io" },
   "metadata": {
-    "description": "Anthropic example skills",
+    "description": "EdV-trimmed fork of anthropics/skills. Keeps docx/pdf/pptx/xlsx + claude-api only. Workaround for upstream plugin loader bug #189 — physical prune prevents the loader from pulling unwanted skills.",
     "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "document-skills",
-      "description": "Collection of document processing suite including Excel, Word, PowerPoint, and PDF capabilities",
+      "name": "trimmed-skills",
+      "description": "Anthropic's Word/Excel/PowerPoint/PDF document skills plus the Claude API/SDK documentation skill. Trimmed fork of anthropics/skills — the 12 non-office, non-SDK skills are pruned.",
       "source": "./",
-      "strict": false,
+      "strict": true,
       "skills": [
-        "./skills/xlsx",
         "./skills/docx",
+        "./skills/pdf",
         "./skills/pptx",
-        "./skills/pdf"
-      ]
-    },
-    {
-      "name": "example-skills",
-      "description": "Collection of example skills demonstrating various capabilities including skill creation, MCP building, visual design, algorithmic art, internal communications, web testing, artifact building, Slack GIFs, and theme styling",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/algorithmic-art",
-        "./skills/brand-guidelines",
-        "./skills/canvas-design",
-        "./skills/doc-coauthoring",
-        "./skills/frontend-design",
-        "./skills/internal-comms",
-        "./skills/mcp-builder",
-        "./skills/skill-creator",
-        "./skills/slack-gif-creator",
-        "./skills/theme-factory",
-        "./skills/web-artifacts-builder",
-        "./skills/webapp-testing"
-      ]
-    }
-    ,
-    {
-      "name": "claude-api",
-      "description": "Claude API and SDK documentation skill for building LLM-powered applications",
-      "source": "./",
-      "strict": false,
-      "skills": [
+        "./skills/xlsx",
         "./skills/claude-api"
       ]
     }
