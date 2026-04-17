@@ -42,6 +42,12 @@ Verify on next session start: `docx`, `pdf`, `pptx`, `xlsx`, `claude-api` appear
 
 **Do not merge upstream by hand on sagan** — the launchd job owns the sync. If you need to pull upstream changes manually (e.g., mac-mini offline), do it on mac-mini, not locally.
 
+### Push auth on mac-mini
+
+The edv-io org has deploy keys disabled org-wide, so the sync script uses a scoped fine-grained PAT instead. The token lives at `~/.config/anthropic-skills-trimmed-sync/token` (mode 600) on mac-mini. The script reads it and uses a one-shot `x-access-token:<token>@github.com/...` push URL — the token is never written to git config or the shell history. If the file is absent (e.g., when running the script on sagan during a manual sync test), the script falls back to `git push origin main` using whatever credentials the machine's git has.
+
+The token is GitHub-side scoped to this repo only, Contents: write only, no expiration. Named `mac-mini-anthropic-skills-trimmed-sync` on the PAT list. To rotate: generate a new PAT with the same scope, overwrite the token file on mac-mini, revoke the old PAT.
+
 ## Upstream watch
 
 Track these issues — if and when they resolve, revisit whether this fork is still needed:

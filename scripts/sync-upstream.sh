@@ -10,6 +10,10 @@ set -u
 REPO=~/Projects/anthropic-skills-trimmed
 LOG=~/Library/Logs/anthropic-skills-trimmed-sync.log
 NTFY_TOPIC="alex-alerts"
+# Token file is optional. If present: push uses an embedded x-access-token URL
+# (one-shot; never written to git config). If absent: push uses whatever
+# credentials the machine has (sagan uses the alex-edv gh CLI token).
+TOKEN_FILE="$HOME/.config/anthropic-skills-trimmed-sync/token"
 
 # Guard: upstream must never introduce a new skill we haven't explicitly
 # decided to keep. Update this allowlist when we add skills intentionally.
@@ -56,7 +60,19 @@ for dir in skills/*/; do
     fi
 done
 
-if ! git push origin main --quiet; then
+push_ok=0
+if [[ -r "$TOKEN_FILE" ]]; then
+    TOKEN=$(cat "$TOKEN_FILE")
+    # Push to a URL with the token embedded. The URL stays out of git config
+    # (no `remote set-url`) so the token never persists anywhere on disk
+    # beyond $TOKEN_FILE.
+    git push "https://x-access-token:${TOKEN}@github.com/edv-io/anthropic-skills-trimmed.git" main --quiet && push_ok=1
+    unset TOKEN
+else
+    git push origin main --quiet && push_ok=1
+fi
+
+if [[ $push_ok -eq 0 ]]; then
     echo "PUSH FAILED"
     curl -sS -H "Priority: urgent" -H "Tags: warning" \
          -d "anthropic-skills-trimmed: push to origin failed on mac-mini. Check $LOG." \
