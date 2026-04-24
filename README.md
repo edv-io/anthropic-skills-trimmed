@@ -1,3 +1,5 @@
+> **EdV fork.** This is a trimmed fork of [anthropics/skills](https://github.com/anthropics/skills), pruned to the four document skills (`docx`, `pdf`, `pptx`, `xlsx`) plus `claude-api`. The other 12 upstream skills are physically removed as a workaround for upstream plugin loader bug [#189](https://github.com/anthropics/skills/issues/189) — the loader otherwise pulls every skill in the marketplace regardless of plugin scope.
+
 > **Note:** This repository contains Anthropic's implementation of skills for Claude. For information about the Agent Skills standard, see [agentskills.io](http://agentskills.io).
 
 # Skills
@@ -29,24 +31,22 @@ Many skills in this repo are open source (Apache 2.0). We've also included the d
 # Try in Claude Code, Claude.ai, and the API
 
 ## Claude Code
-You can register this repository as a Claude Code Plugin marketplace by running the following command in Claude Code:
+
+Register this fork as a Claude Code plugin marketplace:
+
 ```
-/plugin marketplace add anthropics/skills
+/plugin marketplace add https://github.com/edv-io/anthropic-skills-trimmed
 ```
 
-Then, to install a specific set of skills:
-1. Select `Browse and install plugins`
-2. Select `anthropic-agent-skills`
-3. Select `document-skills` or `example-skills`
-4. Select `Install now`
+> **Use the full HTTPS URL, not the `edv-io/anthropic-skills-trimmed` shorthand.** The shorthand form resolves to SSH (`git@github.com:...`) and fails on any machine that hasn't set up GitHub SSH known_hosts, with an error like `No ED25519 host key is known for github.com`. HTTPS avoids this entirely.
 
-Alternatively, directly install either Plugin via:
+Then install the plugin:
+
 ```
-/plugin install document-skills@anthropic-agent-skills
-/plugin install example-skills@anthropic-agent-skills
+/plugin install trimmed-skills@anthropic-skills-trimmed
 ```
 
-After installing the plugin, you can use the skill by just mentioning it. For instance, if you install the `document-skills` plugin from the marketplace, you can ask Claude Code to do something like: "Use the PDF skill to extract the form fields from `path/to/some-file.pdf`"
+After installing, you can use any of the bundled skills by mentioning them. For example: "Use the PDF skill to extract the form fields from `path/to/some-file.pdf`"
 
 ## Claude.ai
 
