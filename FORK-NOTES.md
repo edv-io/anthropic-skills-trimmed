@@ -23,9 +23,9 @@ algorithmic-art, brand-guidelines, canvas-design, doc-coauthoring, frontend-desi
 ## Install (teammates)
 
 ```bash
-gh repo clone edv-io/anthropic-skills-trimmed ~/Projects/anthropic-skills-trimmed
+gh repo clone edv-io/anthropic-skills-trimmed ~/Projects/EdV/anthropic-skills-trimmed
 # In Claude Code:
-/plugin marketplace add ~/Projects/anthropic-skills-trimmed
+/plugin marketplace add ~/Projects/EdV/anthropic-skills-trimmed
 /plugin install trimmed-skills@anthropic-skills-trimmed
 ```
 
