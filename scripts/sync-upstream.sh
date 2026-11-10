@@ -7,7 +7,10 @@
 # ourselves and notify on each failure class.
 set -u
 
-REPO=~/Projects/anthropic-skills-trimmed
+# Resolve the checkout from this script's own location, so the same script
+# works wherever the repo is cloned: mac-mini keeps it at
+# ~/Projects/anthropic-skills-trimmed, sagan at ~/Projects/EdV/anthropic-skills-trimmed.
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG=~/Library/Logs/anthropic-skills-trimmed-sync.log
 NTFY_TOPIC="alex-alerts"
 # Token file is optional. If present: push uses an embedded x-access-token URL
